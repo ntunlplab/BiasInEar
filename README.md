@@ -20,6 +20,12 @@ pip install biasinear[data]
 # With audio utilities
 pip install biasinear[audio]
 
+# With a specific model provider
+pip install biasinear[gemini]     # Google Gemini
+pip install biasinear[openai]     # OpenAI
+pip install biasinear[nvidia]     # NVIDIA Build
+pip install biasinear[mistral]    # Mistral
+
 # Everything
 pip install biasinear[all]
 ```
@@ -29,6 +35,49 @@ Or with [uv](https://github.com/astral-sh/uv):
 ```bash
 uv pip install biasinear[all]
 ```
+
+## Model Providers
+
+BiasInEar includes built-in support for several audio language model APIs:
+
+| Provider | Class | Install | Default Model |
+|----------|-------|---------|---------------|
+| Google Gemini | `GeminiModel` | `pip install biasinear[gemini]` | `gemini-2.5-flash` |
+| OpenAI | `OpenAIModel` | `pip install biasinear[openai]` | `gpt-4o-audio-preview` |
+| NVIDIA Build | `NvidiaModel` | `pip install biasinear[nvidia]` | `google/gemma-3n-e4b-it` |
+| Mistral | `MistralModel` | `pip install biasinear[mistral]` | `voxtral-small-2507` |
+
+### API Keys
+
+Set your API key as an environment variable:
+
+```bash
+export GEMINI_API_KEY="..."
+export OPENAI_API_KEY="..."
+export NVIDIA_API_KEY="..."
+export MISTRAL_API_KEY="..."
+```
+
+Or pass directly when creating the model:
+
+```python
+from biasinear.models import GeminiModel
+model = GeminiModel(api_key="your-api-key")
+```
+
+### Quick Example (Gemini)
+
+```python
+from biasinear.models import GeminiModel
+from biasinear.utils import concat_audio
+
+model = GeminiModel()  # uses GEMINI_API_KEY env var
+combined = concat_audio(question=q_bytes, options=opt_bytes)
+output = model.generate(combined)
+print(output["answer"], output["raw_response"])
+```
+
+See [`examples/`](examples/) for complete provider scripts.
 
 ## Quick Start
 
