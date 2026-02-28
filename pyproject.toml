@@ -35,7 +35,11 @@ dependencies = [
 [project.optional-dependencies]
 data = ["datasets", "soundfile"]
 audio = ["pydub"]
-all = ["biasinear[data,audio]"]
+gemini = ["google-genai"]
+openai = ["openai>=1.0"]
+nvidia = ["openai>=1.0"]
+mistral = ["mistralai"]
+all = ["biasinear[data,audio,gemini,openai,nvidia,mistral]"]
 dev = ["pytest", "biasinear[all]"]
 
 [project.urls]
