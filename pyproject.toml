@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biasinear"
-version = "0.1.0"
+version = "0.2.0"
 description = "BiasInEar: Assessing Sensitivity in Audio Language Models Across Linguistic, Demographic, and Positional Variations"
 readme = "README.md"
 license = "Apache-2.0"
