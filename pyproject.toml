@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "biasinear"
-version = "0.2.1"
+version = "0.2.2"
 description = "BiasInEar: Assessing Sensitivity in Audio Language Models Across Linguistic, Demographic, and Positional Variations"
 readme = "README.md"
 license = "Apache-2.0"
@@ -33,7 +33,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-data = ["datasets", "soundfile"]
+data = ["datasets>=2.14,<4", "soundfile", "librosa"]
 audio = ["pydub", "soundfile"]
 gemini = ["google-genai"]
 openai = ["openai>=1.0"]

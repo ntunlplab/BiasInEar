@@ -52,12 +52,7 @@ class NvidiaModel(BaseModel):
             {"role": "system", "content": self._system_prompt},
             {
                 "role": "user",
-                "content": [
-                    {
-                        "type": "audio",
-                        "audio": f"data:audio/wav;base64,{b64}",
-                    },
-                ],
+                "content": f'<audio src="data:audio/wav;base64,{b64}" />',
             },
         ]
 
