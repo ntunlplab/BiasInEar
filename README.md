@@ -30,6 +30,9 @@ pip install biasinear[mistral]    # Mistral
 pip install biasinear[all]
 ```
 
+> **Note:** Audio features (`[audio]`) require **FFmpeg** installed on your system.
+> Install it via `brew install ffmpeg` (macOS), `apt install ffmpeg` (Ubuntu), or see [ffmpeg.org](https://ffmpeg.org/download.html).
+
 Or with [uv](https://github.com/astral-sh/uv):
 
 ```bash
@@ -68,11 +71,26 @@ model = GeminiModel(api_key="your-api-key")
 ### Quick Example (Gemini)
 
 ```python
+import io
+import soundfile as sf
+from biasinear import load_dataset
 from biasinear.models import GeminiModel
 from biasinear.utils import concat_audio
 
+def audio_dict_to_bytes(audio_dict: dict) -> bytes:
+    """Convert HuggingFace audio dict to WAV bytes."""
+    buf = io.BytesIO()
+    sf.write(buf, audio_dict["array"], audio_dict["sampling_rate"], format="WAV")
+    return buf.getvalue()
+
 model = GeminiModel()  # uses GEMINI_API_KEY env var
+dataset = load_dataset(config="en_Female")
+sample = dataset[0]
+
+q_bytes = audio_dict_to_bytes(sample["question"])
+opt_bytes = [audio_dict_to_bytes(sample[f"option_{c}"]) for c in "abcd"]
 combined = concat_audio(question=q_bytes, options=opt_bytes)
+
 output = model.generate(combined)
 print(output["answer"], output["raw_response"])
 ```

@@ -6,7 +6,7 @@ DATASET_ID = "ntunlplab/BiasInEar"
 ALL_CONFIGS = ["en_Female", "en_Male", "zh_Female", "zh_Male", "ko_Female", "ko_Male"]
 
 
-def load_dataset(config: str | None = None, split: str = "test"):
+def load_dataset(config: str | None = None, split: str = "train"):
     """Load the BiasInEar dataset from HuggingFace Hub.
 
     Thin wrapper around ``datasets.load_dataset()``.
@@ -16,7 +16,7 @@ def load_dataset(config: str | None = None, split: str = "test"):
             ``"en_Male"``, ``"zh_Female"``, ``"zh_Male"``, ``"ko_Female"``,
             ``"ko_Male"``. If ``None``, all configs are loaded and
             concatenated.
-        split: Dataset split (default ``"test"``).
+        split: Dataset split (default ``"train"``).
 
     Returns:
         A ``datasets.Dataset`` object.
